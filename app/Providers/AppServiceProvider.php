@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Providers;
@@ -16,10 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (app()->environment('production')) {
-            URL::forceRootUrl(
-                'https://checkin-cebu-production.up.railway.app'
-            );
-
+            URL::forceRootUrl('https://checkin-cebu-production.up.railway.app');
             URL::forceScheme('https');
         }
     }
