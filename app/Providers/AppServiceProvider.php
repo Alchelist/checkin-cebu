@@ -8,25 +8,19 @@ use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-  public function boot(): void
-{
-    if (app()->environment('production')) {
-        \Illuminate\Support\Facades\URL::forceRootUrl(
-            'https://checkin-cebu-production.up.railway.app'
-        );
+    public function boot(): void
+    {
+        if (app()->environment('production')) {
+            URL::forceRootUrl(
+                'https://checkin-cebu-production.up.railway.app'
+            );
 
-        \Illuminate\Support\Facades\URL::forceScheme('https');
+            URL::forceScheme('https');
+        }
     }
-}
 }
