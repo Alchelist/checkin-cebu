@@ -3,11 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Event;
-use App\Models\Registration;
 use App\Models\StaffUser;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Str;
 use RuntimeException;
 
 class DatabaseSeeder extends Seeder
@@ -45,47 +43,30 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $meetupDate = now()->addDays(7)->startOfDay();
+        $eventDate = now()->addDays(7)->startOfDay();
 
         Event::updateOrCreate(
             ['title' => 'Cebu Dev Meetup 2026'],
             [
                 'description' => 'An evening of practical talks, honest engineering conversations, and new connections for Cebu developers.',
                 'venue' => 'Ayala Center Cebu, Function Room 2',
-                'starts_at' => $meetupDate->copy()->setTime(9, 0),
-                'ends_at' => $meetupDate->copy()->setTime(17, 0),
+                'starts_at' => $eventDate->copy()->setTime(9, 0),
+                'ends_at' => $eventDate->copy()->setTime(17, 0),
                 'capacity' => 30,
                 'status' => 'published',
             ]
         );
 
-        $fullDate = now()->addDays(7)->startOfDay();
-
-        $full = Event::updateOrCreate(
+        Event::updateOrCreate(
             ['title' => 'Cebu Design Social'],
             [
-                'description' => 'A small, sold-out gathering for designers and creative technologists.',
+                'description' => 'A small gathering for designers and creative technologists.',
                 'venue' => 'The Greenery, Kasambagan',
-                'starts_at' => $fullDate->copy()->setTime(15, 0),
-                'ends_at' => $fullDate->copy()->setTime(17, 30),
+                'starts_at' => $eventDate->copy()->setTime(15, 0),
+                'ends_at' => $eventDate->copy()->setTime(17, 30),
                 'capacity' => 3,
                 'status' => 'published',
             ]
         );
-
-        for ($i = 1; $i <= 3; $i++) {
-            Registration::updateOrCreate(
-                ['ticket_code' => "CDS-DEMO0{$i}"],
-                [
-                    'event_id' => $full->id,
-                    'full_name' => "Seeded Guest {$i}",
-                    'email' => "guest{$i}@example.test",
-                    'mobile' => '0917123456' . $i,
-                    'qr_token' => Str::random(48),
-                    'status' => 'confirmed',
-                    'registered_at' => now(),
-                ]
-            );
-        }
     }
 }
